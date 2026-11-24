@@ -1,6 +1,4 @@
 import asyncio
-import random
-import struct
 
 from typing import (
     AsyncIterator,
@@ -756,7 +754,7 @@ class WebsocketImplProtocol:
 
             # Generate a unique random payload otherwise.
             while data is None or data in self.pings:
-                data = struct.pack("!I", random.getrandbits(32))
+                data = os.urandom(4)
 
             self.pings[data] = self.io_proto.loop.create_future()
 
